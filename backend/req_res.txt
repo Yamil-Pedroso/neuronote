@@ -1,0 +1,132 @@
+Request (req)
+
+Propiedades comunes:
+
+req.method — "GET"|"POST"|...
+
+req.url — URL completa de la petición (ruta + query)
+
+req.originalUrl — URL original (antes de middlewares de reescritura)
+
+req.path — solo la ruta (/api/v1/users)
+
+req.baseUrl — prefijo montado del router (/api/v1)
+
+req.params — params de ruta (/users/:id → { id: "123" })
+
+req.query — query string parseada (?page=2 → { page: "2" })
+
+req.headers — cabeceras (objeto en minúsculas)
+
+req.body — cuerpo parseado (requiere express.json(), urlencoded, etc.)
+
+req.cookies / req.signedCookies — si usas cookie-parser
+
+req.ip / req.ips — IP del cliente (con trust proxy para proxies)
+
+req.secure — true si es HTTPS
+
+req.protocol — "http" o "https"
+
+req.hostname / req.subdomains
+
+req.xhr — true si el header X-Requested-With: XMLHttpRequest
+
+req.route — info de la ruta que hizo match
+
+req.fresh / req.stale — validación de cache por headers
+
+req.get(name) — leer cabecera concreta
+
+Si usas middlewares específicos:
+
+Multer: req.file (un archivo), req.files (múltiples)
+
+Passport / auth custom: puedes añadir req.user, req.auth (propiedad personalizada)
+
+express-session/cookie-session: req.session
+
+Response (res)
+
+Métodos imprescindibles:
+
+res.status(code) — establece el status (encadenable)
+
+res.set(name, value) / res.header() — cabeceras
+
+res.get(name) — leer cabecera que vas a enviar
+
+res.type(mime) — res.type("json") / res.type("text")
+
+res.send(body) — envía string/buffer/objeto
+
+res.json(obj) — envía JSON (pone Content-Type: application/json)
+
+res.end() — finaliza sin cuerpo extra
+
+res.redirect(status?, url) — redirección
+
+res.location(url) — cabecera Location
+
+res.cookie(name, value, options) — setear cookie
+
+res.clearCookie(name, options) — borrar cookie
+
+res.append(name, value) — añadir cabecera sin sobrescribir
+
+res.vary(field) — cabecera Vary
+
+res.format(map) — content-negotiation según Accept
+
+res.links(links) — cabecera Link
+
+res.download(path, filename?, opts?, cb?) — descarga de archivo
+
+res.sendFile(path, options?, cb?) — enviar archivo
+
+res.attachment(filename?) — Content-Disposition: attachment
+
+res.render(view, locals?) — si usas un motor de vistas
+
+res.locals — variables por request para vistas/middlewares
+
+Ejemplos típicos:
+
+res.status(201).json({ id });
+res.set("Cache-Control", "no-store").send("OK");
+res.cookie("token", jwt, { httpOnly: true, sameSite: "strict" });
+res.redirect(303, "/thanks");
+
+Next (third arg de middlewares)
+
+next(err?) — pasa al siguiente middleware. Si pasas un error, activa los error handlers.
+
+Extender Request con campos propios (TS)
+
+Si añades req.auth en tu middleware, tipa globalmente:
+
+// src/types/express.d.ts
+import "express";
+
+declare module "express-serve-static-core" {
+  interface Request {
+    auth?: { userId: string; isAdmin?: boolean };
+  }
+}
+
+
+Asegúrate de que este archivo esté incluido en tsconfig.json ("include").
+
+Notas útiles
+
+Para tener req.body, monta parsers:
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+Con archivos, usa multer (memory/disk storage) → req.file / req.files.
+
+Con cookies, usa cookie-parser para req.cookies y res.cookie().
+
+En Express 5 la API req/res se mantiene muy similar a Express 4.

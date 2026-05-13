@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 
 import { useCreateNote } from "../../lib/hooks/useNotes";
+import { toast } from "sonner";
 
 export function CreateNoteForm() {
   const { mutateAsync, isPending } = useCreateNote();
@@ -14,13 +16,33 @@ export function CreateNoteForm() {
 
     if (!title || !content) return;
 
-    await mutateAsync({
-      title,
-      content,
-    });
+    try {
+      await mutateAsync({
+        title,
+        content,
+      });
 
-    setTitle("");
-    setContent("");
+      setTitle("");
+      setContent("");
+
+      toast("Note created", {
+        description: "Your new note is ready.",
+
+        className:
+          "!bg-[#F3A8A8] !border-4 !border-[#1F1F1F] !text-[#1F1F1F] !rounded-[1.7rem] !shadow-[6px_6px_0_#E48D8D]",
+
+        descriptionClassName: "!text-[#1F1F1F]/70 !font-bold",
+
+        style: {
+          fontWeight: "900",
+        },
+      });
+    } catch (error) {
+      toast.error("Failed to create note", {
+        className:
+          "!bg-[#F4EBDD] !border-4 !border-[#1F1F1F] !text-[#1F1F1F] !rounded-[1.7rem] !shadow-[6px_6px_0_#D9C7A8]",
+      });
+    }
   };
 
   return (

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
+import { toast } from "sonner";
 import {
   useDeleteNote,
   useNotes,
@@ -25,6 +26,8 @@ type ArchiveFilter = "active" | "archived" | "all";
 export function NotesList() {
   const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
 
+  const [noteToDeleteId, setNoteToDeleteId] = useState<string | null>(null);
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const [archiveFilter, setArchiveFilter] = useState<ArchiveFilter>("active");
@@ -43,6 +46,37 @@ export function NotesList() {
 
   const { mutateAsync: unarchiveNote } = useUnarchiveNote();
 
+  const handleDeleteNote = async (noteId: string) => {
+    try {
+      await deleteNote(noteId);
+
+      toast.success("Note deleted", {
+        description: "Your note was removed successfully.",
+
+        className:
+          "!bg-[#A8D5BA] !border-4 !border-[#1F1F1F] !text-[#1F1F1F] !rounded-[1.7rem] !shadow-[6px_6px_0_#7DBA95]",
+
+        descriptionClassName: "!text-[#1F1F1F]/70 !font-bold",
+
+        style: {
+          fontWeight: "900",
+        },
+      });
+    } catch {
+      toast.error("Failed to delete note", {
+        description: "Please try again.",
+
+        className:
+          "!bg-[#F4EBDD] !border-4 !border-[#1F1F1F] !text-[#1F1F1F] !rounded-[1.7rem] !shadow-[6px_6px_0_#D9C7A8]",
+
+        descriptionClassName: "!text-[#1F1F1F]/70 !font-bold",
+
+        style: {
+          fontWeight: "900",
+        },
+      });
+    }
+  };
   const filteredNotes = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
@@ -107,6 +141,8 @@ export function NotesList() {
           );
 
           const isEditing = editingNoteId === note.id;
+
+          const isDeleteConfirmationOpen = noteToDeleteId === note.id;
 
           return (
             <article
@@ -242,13 +278,44 @@ export function NotesList() {
                   {note.is_archived ? "Unarchive" : "Archive"}
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => deleteNote(note.id)}
-                  className="rounded-2xl border-4 border-[#1F1F1F] bg-[#F3A8A8] px-3 py-2 text-sm font-black shadow-[3px_3px_0_#1F1F1F]"
-                >
-                  Delete
-                </button>
+                <div className="relative">
+                  {isDeleteConfirmationOpen && (
+                    <div className="absolute bottom-full left-1/2 z-20 mb-3 w-[min(260px,80vw)] -translate-x-1/2 rounded-3xl border-4 border-[#1F1F1F] bg-[#FFF9EF] p-4 text-center shadow-[5px_5px_0_#F3A8A8] sm:left-auto sm:right-0 sm:translate-x-0">
+                      <p className="text-sm font-black">
+                        Are you sure you want to delete this note?
+                      </p>
+
+                      <div className="mt-3 flex justify-center gap-2">
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            await handleDeleteNote(note.id);
+                            setNoteToDeleteId(null);
+                          }}
+                          className="rounded-2xl border-4 border-[#1F1F1F] bg-[#F3A8A8] px-4 py-2 text-xs font-black shadow-[2px_2px_0_#1F1F1F]"
+                        >
+                          Yes
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setNoteToDeleteId(null)}
+                          className="rounded-2xl border-4 border-[#1F1F1F] bg-white px-4 py-2 text-xs font-black shadow-[2px_2px_0_#1F1F1F]"
+                        >
+                          No
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => setNoteToDeleteId(note.id)}
+                    className="rounded-2xl border-4 border-[#1F1F1F] bg-[#F3A8A8] px-3 py-2 text-sm font-black shadow-[3px_3px_0_#1F1F1F]"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
 
               <EditNoteDrawer

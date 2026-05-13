@@ -74,6 +74,9 @@ export function DashboardPage() {
     navigate({ to: "/login" });
   };
 
+  const heroText =
+    "Organize your thoughts, generate AI summaries, connect tags and build your personal knowledge universe.";
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -233,13 +236,28 @@ export function DashboardPage() {
                 </motion.div>
 
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.8 }}
+                  initial="hidden"
+                  animate="visible"
                   className="mt-5 max-w-5xl text-3xl leading-10"
                 >
-                  Organize your thoughts, generate AI summaries, connect tags
-                  and build your personal knowledge universe.
+                  {heroText.split("").map((char, index) => (
+                    <motion.span
+                      key={`${char}-${index}`}
+                      variants={{
+                        hidden: { opacity: 0, y: 4 },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          transition: {
+                            delay: 0.9 + index * 0.025,
+                            duration: 0.08,
+                          },
+                        },
+                      }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
                 </motion.p>
               </div>
 

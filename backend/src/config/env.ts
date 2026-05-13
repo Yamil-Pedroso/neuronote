@@ -40,4 +40,10 @@ export const env = {
 
   OPENAI_EMBEDDING_MODEL:
     process.env.OPENAI_EMBEDDING_MODEL || "text-embedding-3-small",
+
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME!,
+
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY!,
+
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET!,
 };

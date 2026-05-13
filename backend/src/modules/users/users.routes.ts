@@ -5,7 +5,7 @@ import { authMiddleware } from "../../shared/middlewares/auth.middleware.js";
 import { requireRole } from "../../shared/middlewares/requireRole.js";
 import { validate } from "../../shared/middlewares/validate.js";
 import { updateMeSchema } from "./users.schemas.js";
-import { upload } from "../../shared/middlewares/upload.middleware.js";
+import { upload } from "../../shared/middlewares/upload-cloudinary.middleware.js";
 
 export const usersRoutes = Router();
 

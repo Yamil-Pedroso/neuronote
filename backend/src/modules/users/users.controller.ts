@@ -34,9 +34,7 @@ export const usersController = {
       return;
     }
 
-    const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/avatars/${
-      req.file.filename
-    }`;
+    const avatarUrl = req.file.path;
 
     const user = await usersService.updateAvatar(req.user!.id, avatarUrl);
 

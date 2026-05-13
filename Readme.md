@@ -2,7 +2,7 @@
   <img src="./client/public/neuronote-cover.png" alt="NeuroNote Cover" width="100%" />
 </p>
 
-<h1 align="center">🧠 NeuroNote</h1>
+<h1 align="center">NeuroNote</h1>
 
 <p align="center">
   Your AI-Powered Second Brain
@@ -14,9 +14,24 @@
 
 ---
 
-# ✨ Features
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=react,ts,vite,tailwind,nodejs,express,postgres" />
+</p>
 
-## 📝 Smart Notes
+<p align="center">
+  <img src="https://img.shields.io/badge/AI-Powered-ffb6c1?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/pgvector-Semantic_Search-a8d5ba?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/OpenAI-Embeddings-black?style=for-the-badge" />
+</p>
+
+---
+
+# Smart Notes
+
+<p>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/markdown/markdown-original.svg" width="34" />
+</p>
+
 - Create, edit and delete notes
 - Archive and unarchive notes
 - Rich markdown rendering
@@ -26,7 +41,12 @@
 
 ---
 
-## 🤖 AI Features
+# AI Features
+
+<p>
+  <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" width="34" />
+</p>
+
 - AI-generated summaries
 - AI-generated titles
 - AI-powered tag suggestions
@@ -36,13 +56,19 @@
 
 ---
 
-## 🔍 Semantic Search
+# Semantic Search
+
+<p>
+  <img src="https://cdn-icons-png.flaticon.com/512/954/954591.png" width="34" />
+</p>
+
 - Semantic note search with pgvector
 - Embedding-based similarity matching
 - Natural language note discovery
 - Smart contextual results
 
-Examples:
+### Example Searches
+
 - “camera I never use”
 - “frontend portfolio ideas”
 - “fitness habits”
@@ -50,7 +76,12 @@ Examples:
 
 ---
 
-## 🏷️ Tag System
+# Tag System
+
+<p>
+  <img src="https://cdn-icons-png.flaticon.com/512/1828/1828859.png" width="34" />
+</p>
+
 - Create custom tags
 - Attach/remove tags dynamically
 - AI-generated tags
@@ -58,7 +89,12 @@ Examples:
 
 ---
 
-## 🎨 Modern UI / UX
+# Modern UI / UX
+
+<p>
+  <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" width="34" />
+</p>
+
 - Motion animations
 - Floating tooltips
 - Dashboard transitions
@@ -69,9 +105,14 @@ Examples:
 
 ---
 
-# 🛠️ Tech Stack
+# Tech Stack
 
 ## Frontend
+
+<p>
+  <img src="https://skillicons.dev/icons?i=react,ts,vite,tailwind" />
+</p>
+
 - React
 - TypeScript
 - Vite
@@ -84,6 +125,11 @@ Examples:
 ---
 
 ## Backend
+
+<p>
+  <img src="https://skillicons.dev/icons?i=nodejs,express,postgres" />
+</p>
+
 - Node.js
 - Express
 - TypeScript
@@ -94,17 +140,19 @@ Examples:
 
 ---
 
-# 🧠 AI Capabilities
+# AI Capabilities
 
 NeuroNote uses AI to transform notes into contextual knowledge.
 
 ### Current AI Features
+
 - Generate summaries automatically
 - Improve note titles
 - Suggest contextual tags
 - Semantic search using embeddings
 
 ### Planned AI Features
+
 - AI Chat with Notes
 - Global Workspace AI Chat
 - Knowledge Graphs
@@ -114,15 +162,17 @@ NeuroNote uses AI to transform notes into contextual knowledge.
 
 ---
 
-# 📸 Preview
+# Preview
 
 ## Dashboard
+
 - AI-powered workspace
 - Sticky note creation panel
 - Semantic search
 - Animated interface
 
 ## AI Tools
+
 - Generate summaries
 - Generate titles
 - Suggest tags
@@ -130,9 +180,9 @@ NeuroNote uses AI to transform notes into contextual knowledge.
 
 ---
 
-# 🚀 Installation
+# Installation
 
 ## Clone Repository
 
 ```bash
-git clone https://github.com/your-username/neuronote.git
+git clone https://github.com/yamil-pedroso/neuronote.git

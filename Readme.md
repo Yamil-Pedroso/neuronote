@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../public/neuronote-cover.png" alt="NeuroNote Cover" width="100%" />
+  <img src="./client/public/neuronote-cover.png" alt="NeuroNote Cover" width="100%" />
 </p>
 
 <h1 align="center">🧠 NeuroNote</h1>

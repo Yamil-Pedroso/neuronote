@@ -55,7 +55,6 @@ export const notesRepository = {
       LEFT JOIN tags t
         ON t.id = nt.tag_id
       WHERE n.user_id = $1
-      AND n.is_archived = false
       GROUP BY n.id
       ORDER BY n.created_at DESC
       LIMIT $2 OFFSET $3
@@ -172,5 +171,39 @@ export const notesRepository = {
     );
 
     return result.rows;
+  },
+
+  async archive(id: string, userId: string): Promise<Note | null> {
+    const result = await db.query<Note>(
+      `
+    UPDATE notes
+    SET
+      is_archived = true,
+      updated_at = NOW()
+    WHERE id = $1
+    AND user_id = $2
+    RETURNING *
+    `,
+      [id, userId],
+    );
+
+    return result.rows[0] || null;
+  },
+
+  async unarchive(id: string, userId: string): Promise<Note | null> {
+    const result = await db.query<Note>(
+      `
+    UPDATE notes
+    SET
+      is_archived = false,
+      updated_at = NOW()
+    WHERE id = $1
+    AND user_id = $2
+    RETURNING *
+    `,
+      [id, userId],
+    );
+
+    return result.rows[0] || null;
   },
 };

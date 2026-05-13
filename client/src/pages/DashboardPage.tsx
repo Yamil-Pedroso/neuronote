@@ -206,40 +206,55 @@ export function DashboardPage() {
               />
             </header>
 
-            <div className="bg-[linear-gradient(#E8DED2_1px,transparent_1px),linear-gradient(90deg,#E8DED2_1px,transparent_1px)] bg-size-[28px_28px] p-10">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45, duration: 0.8 }}
-                className="flex items-center text-6xl font-bold"
-              >
-                <p>{welcomeMessage}</p>
-
+            <div className="relative bg-[linear-gradient(#E8DED2_1px,transparent_1px),linear-gradient(90deg,#E8DED2_1px,transparent_1px)] bg-size-[28px_28px] p-10 pr-28">
+              <div>
                 <motion.div
-                  animate={{ rotate: [0, -8, 8, -4, 0] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatDelay: 4,
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.45, duration: 0.8 }}
+                  className="flex items-center text-6xl font-bold"
                 >
-                  <img
-                    src={assets.sunFlower}
-                    alt="Sunflower Icon"
-                    className="ml-2.5 mt-2 h-14 w-14 object-contain saturate-80"
-                  />
-                </motion.div>
-              </motion.div>
+                  <p>{welcomeMessage}</p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="mt-5 max-w-5xl text-3xl leading-10"
-              >
-                Organize your thoughts, generate AI summaries, connect tags and
-                build your personal knowledge universe.
-              </motion.p>
+                  <motion.div
+                    animate={{ rotate: [0, -8, 8, -4, 0] }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 4,
+                    }}
+                  >
+                    <img
+                      src={assets.sunFlower}
+                      alt="Sunflower Icon"
+                      className="ml-2.5 mt-2 h-14 w-14 object-contain saturate-80"
+                    />
+                  </motion.div>
+                </motion.div>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="mt-5 max-w-5xl text-3xl leading-10"
+                >
+                  Organize your thoughts, generate AI summaries, connect tags
+                  and build your personal knowledge universe.
+                </motion.p>
+              </div>
+
+              <motion.img
+                src={assets.pencil}
+                alt="Pencil Icon"
+                initial={{ opacity: 0, rotate: 18, scale: 0.8 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                transition={{
+                  delay: 0.85,
+                  duration: 0.7,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="absolute bottom-6 right-8 w-16 object-contain"
+              />
             </div>
           </motion.section>
 

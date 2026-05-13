@@ -59,4 +59,30 @@ export const notesController = {
       message: `Note deleted successfully with id ${req.params.id}`,
     });
   }),
+
+  archiveNote: asyncHandler(async (req: Request, res: Response) => {
+    const note = await notesService.archiveNote(
+      req.params.id as string,
+      req.user!.id,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Note archived successfully",
+      data: { note },
+    });
+  }),
+
+  unarchiveNote: asyncHandler(async (req: Request, res: Response) => {
+    const note = await notesService.unarchiveNote(
+      req.params.id as string,
+      req.user!.id,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Note unarchived successfully",
+      data: { note },
+    });
+  }),
 };

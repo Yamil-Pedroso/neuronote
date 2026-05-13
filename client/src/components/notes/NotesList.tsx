@@ -7,7 +7,8 @@ import remarkGfm from "remark-gfm";
 import {
   useDeleteNote,
   useNotes,
-  useUpdateNote,
+  useArchiveNote,
+  useUnarchiveNote,
 } from "../../lib/hooks/useNotes";
 
 import {
@@ -34,11 +35,13 @@ export function NotesList() {
 
   const { mutateAsync: deleteNote } = useDeleteNote();
 
-  const { mutateAsync: updateNote } = useUpdateNote();
-
   const { mutateAsync: attachTag } = useAttachTagToNote();
 
   const { mutateAsync: removeTag } = useRemoveTagFromNote();
+
+  const { mutateAsync: archiveNote } = useArchiveNote();
+
+  const { mutateAsync: unarchiveNote } = useUnarchiveNote();
 
   const filteredNotes = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
@@ -97,7 +100,7 @@ export function NotesList() {
         </div>
       </div>
 
-      <div className="grid gap-5 xl:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid items-start gap-5 xl:grid-cols-2 2xl:grid-cols-3">
         {filteredNotes.map((note) => {
           const availableTags = tags.filter(
             (tag) => !note.tags?.some((noteTag) => noteTag.id === tag.id),
@@ -206,7 +209,7 @@ export function NotesList() {
                 </div>
               )}
 
-              <div className="mt-6 flex flex-wrap gap-2 border-t-4 border-dashed border-[#1F1F1F] pt-4">
+              <div className="mt-6 flex flex-wrap justify-center gap-2 border-t-4 border-dashed border-[#1F1F1F] pt-4">
                 <Link
                   to="/notes/$noteId"
                   params={{ noteId: note.id }}
@@ -228,14 +231,13 @@ export function NotesList() {
                 <button
                   type="button"
                   onClick={() =>
-                    updateNote({
-                      id: note.id,
-                      input: {
-                        is_archived: !note.is_archived,
-                      },
-                    })
+                    note.is_archived
+                      ? unarchiveNote(note.id)
+                      : archiveNote(note.id)
                   }
-                  className="rounded-2xl border-4 border-[#1F1F1F] bg-white px-3 py-2 text-sm font-black shadow-[3px_3px_0_#1F1F1F]"
+                  className={`rounded-2xl border-4 border-[#1F1F1F] px-3 py-2 text-sm font-black shadow-[3px_3px_0_#1F1F1F] transition hover:-translate-y-1 ${
+                    note.is_archived ? "bg-[#A8D5BA]" : "bg-white"
+                  }`}
                 >
                   {note.is_archived ? "Unarchive" : "Archive"}
                 </button>

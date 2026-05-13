@@ -49,6 +49,14 @@ export const notesService = {
     return response.data.data.note;
   },
 
+  async archiveNote(id: string) {
+    await apiClient.patch(`/notes/${id}/archive`);
+  },
+
+  async unarchiveNote(id: string) {
+    await apiClient.patch(`/notes/${id}/unarchive`);
+  },
+
   async deleteNote(id: string) {
     await apiClient.delete(`/notes/${id}`);
   },

@@ -8,6 +8,7 @@ import {
   updateNoteSchema,
   noteParamsSchema,
 } from "./notes.schemas.js";
+import { asyncHandler } from "../../shared/utils/asyncHandler.js";
 
 export const notesRoutes = Router();
 
@@ -28,6 +29,18 @@ notesRoutes.patch(
   validate(noteParamsSchema),
   validate(updateNoteSchema),
   notesController.updateNote,
+);
+
+notesRoutes.patch(
+  "/:id/archive",
+  validate(noteParamsSchema),
+  notesController.archiveNote,
+);
+
+notesRoutes.patch(
+  "/:id/unarchive",
+  validate(noteParamsSchema),
+  notesController.unarchiveNote,
 );
 
 notesRoutes.delete(

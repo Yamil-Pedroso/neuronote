@@ -62,6 +62,34 @@ export function useNotesStats() {
   };
 }
 
+export function useArchiveNote() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: notesService.archiveNote,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["notes"],
+      });
+    },
+  });
+}
+
+export function useUnarchiveNote() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: notesService.unarchiveNote,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["notes"],
+      });
+    },
+  });
+}
+
 export function useUpdateNote() {
   const queryClient = useQueryClient();
 

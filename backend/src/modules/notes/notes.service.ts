@@ -76,4 +76,24 @@ export const notesService = {
 
     await notesRepository.delete(noteId, userId);
   },
+
+  async archiveNote(noteId: string, userId: string) {
+    const note = await notesRepository.findByIdAndUserId(noteId, userId);
+
+    if (!note) {
+      throw new AppError("Note not found", 404);
+    }
+
+    return notesRepository.archive(noteId, userId);
+  },
+
+  async unarchiveNote(noteId: string, userId: string) {
+    const note = await notesRepository.findByIdAndUserId(noteId, userId);
+
+    if (!note) {
+      throw new AppError("Note not found", 404);
+    }
+
+    return notesRepository.unarchive(noteId, userId);
+  },
 };

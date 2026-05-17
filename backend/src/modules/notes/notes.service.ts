@@ -2,6 +2,7 @@ import { AppError } from "../../shared/errors/AppError.js";
 import { notesRepository } from "./notes.repository.js";
 import type { CreateNoteInput, UpdateNoteInput } from "./notes.schemas.js";
 import { createEmbedding } from "../ai/embedding.service.js";
+import { automationService } from "../../integrations/automation/automation.service.js";
 
 export const notesService = {
   async createNote(userId: string, input: CreateNoteInput) {
@@ -15,6 +16,11 @@ export const notesService = {
     const embedding = await createEmbedding(embeddingText);
 
     await notesRepository.updateEmbedding(note.id, userId, embedding);
+
+    await automationService.emit("note.created", {
+      userId,
+      note,
+    });
 
     return note;
   },
@@ -64,6 +70,12 @@ export const notesService = {
       await notesRepository.updateEmbedding(updatedNote.id, userId, embedding);
     }
 
+    await automationService.emit("note.updated", {
+      userId,
+      note: updatedNote,
+      changes: input,
+    });
+
     return updatedNote;
   },
 
@@ -75,6 +87,11 @@ export const notesService = {
     }
 
     await notesRepository.delete(noteId, userId);
+
+    await automationService.emit("note.deleted", {
+      userId,
+      note,
+    });
   },
 
   async archiveNote(noteId: string, userId: string) {
@@ -84,7 +101,14 @@ export const notesService = {
       throw new AppError("Note not found", 404);
     }
 
-    return notesRepository.archive(noteId, userId);
+    const archivedNote = await notesRepository.archive(noteId, userId);
+
+    await automationService.emit("note.archived", {
+      userId,
+      note: archivedNote,
+    });
+
+    return archivedNote;
   },
 
   async unarchiveNote(noteId: string, userId: string) {
@@ -94,6 +118,13 @@ export const notesService = {
       throw new AppError("Note not found", 404);
     }
 
-    return notesRepository.unarchive(noteId, userId);
+    const unarchivedNote = await notesRepository.unarchive(noteId, userId);
+
+    await automationService.emit("note.unarchived", {
+      userId,
+      note: unarchivedNote,
+    });
+
+    return unarchivedNote;
   },
 };

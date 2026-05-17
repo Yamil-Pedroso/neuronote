@@ -10,17 +10,18 @@ import { searchRoutes } from "./modules/search/search.routes.js";
 
 export const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://neuronote.vercel.app",
-];
-
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: [
+      "http://localhost:5173",
+      "https://neuronote-pi.vercel.app",
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+
 app.use(express.json());
 
 app.get("/health", (req, res) => {

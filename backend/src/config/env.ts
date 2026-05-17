@@ -9,6 +9,10 @@ const requiredEnvVars = [
   "JWT_REFRESH_SECRET",
   "OPENAI_API_KEY",
   "OPENAI_EMBEDDING_MODEL",
+  "CLOUDINARY_CLOUD_NAME",
+  "CLOUDINARY_API_KEY",
+  "CLOUDINARY_API_SECRET",
+  "N8N_WEBHOOK_URL",
 ];
 
 requiredEnvVars.forEach((envVar) => {
